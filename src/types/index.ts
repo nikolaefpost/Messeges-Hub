@@ -21,3 +21,9 @@ export interface IMessage {
     createdAt: any;
     user: string;
 }
+
+export interface IMessage {
+    senderId: string;
+    text: string;
+    img?: string;
+}

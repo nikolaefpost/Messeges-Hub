@@ -1,0 +1,100 @@
+@import "../../style/mixins";
+@import "../../style/colors";
+
+.sidebar {
+  flex: 1;
+  background-color: $background;
+  position: relative;
+  border-right: 2px solid $pink;
+
+  & .navbar {
+    @include display-flex(space-between);
+    background-color: $burgundy;
+    height: 50px;
+    padding: 10px;
+    @include fonts(500, 18px, 18px, $text_light);
+
+    & .logo {
+      font-weight: bold;
+
+      @include tablet {
+        display: none;
+      }
+    }
+
+    & .user {
+      @include display-flex;
+      gap: 10px;
+
+      & img {
+        //background-color: #ddddf7;
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      & button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        @include tablet {
+          position: absolute;
+          bottom: 10px;
+        }
+      }
+    }
+  }
+
+  & .search {
+    border-bottom: 1px solid $burgundy;
+
+    & .searchForm {
+      padding: 10px;
+      @include display-flex(flex-start);
+      gap: 10px;
+
+      & input {
+        background-color: transparent;
+        border: none;
+        color: $text_light;
+        outline: none;
+
+        &::placeholder {
+          color: $text_dark;
+        }
+      }
+    }
+  }
+
+  & .userChat {
+    padding: 10px;
+    @include display-flex(flex-start);
+    gap: 10px;
+    cursor: pointer;
+    //border-bottom: 1px solid $text_dark;
+
+    &:hover {
+      background-color: $background_hover;
+    }
+
+    & img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    & .userChatInfo {
+
+      & span {
+        @include fonts(500, 16px, 16px, $text_light);
+      }
+
+      & p {
+        @include fonts(500, 14px, 14px, $text_dark);
+      }
+    }
+  }
+}

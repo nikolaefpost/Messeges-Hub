@@ -1,0 +1,21 @@
+@import "../../style/mixins";
+@import "../../style/colors";
+
+.home {
+  background-color: $background;
+  height: 100vh;
+  @include display-flex;
+
+  .container {
+    border: 3px solid $burgundy;
+    //border-radius: 10px;
+    width: 1000%;
+    height: 100%;
+    @include display-flex(center, stretch);
+    overflow: hidden;
+
+    @include tablet {
+      width: 90%;
+    }
+  }
+}

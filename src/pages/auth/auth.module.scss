@@ -1,0 +1,88 @@
+@import "../../style/mixins";
+@import "../../style/colors";
+
+.formContainer {
+  background-color: $background;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .formWrapper {
+    min-width: 400px;
+    background-color: $background;
+    padding: 20px 60px;
+    border-radius: 10px;
+    @include display-flex();
+    flex-direction: column;
+    gap: 10px;
+    border: 2px solid $burgundy;
+
+    .logo {
+      margin-top: 16px;
+      @include fonts(600, 12px, 12px, $pink);
+    }
+
+    .title {
+      margin-top: 16px;
+      @include fonts(400, 32px, 32px, $text_light);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      input {
+        padding: 15px;
+        border: none;
+        width: 300px;
+        border-bottom: 1px solid $burgundy;
+        background-color: $background;
+        @include fonts(400, 16px, 16px, $text_light);
+
+
+        &::placeholder {
+          @include fonts(400, 14px, 14px, $text_dark);
+        }
+      }
+
+      button {
+        margin-top: 20px;
+        background-color: $burgundy;
+        @include fonts(600, 16px, 16px, $text_light);
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+      }
+
+      label {
+        margin-top: 20px;
+        @include display-flex(flex-start);
+        gap: 10px;
+        @include fonts(400, 12px, 12px, $text_light);
+            cursor: pointer;
+
+        img {
+          width: 24px;
+        }
+      }
+    }
+    p {
+      width: 100%;
+      @include fonts(600, 12px, 12px, $burgundy);
+      margin-top: 10px;
+      @include display-flex(space-between);
+      justify-content: space-between;
+
+      & a{
+        @include fonts(600, 16px, 16px, $burgundy);
+        text-decoration: none;
+      }
+    }
+
+    & .loading, .err{
+      @include fonts(600, 16px, 16px, $error);
+    }
+  }
+}

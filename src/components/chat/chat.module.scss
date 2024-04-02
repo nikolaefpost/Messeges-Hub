@@ -1,0 +1,150 @@
+@import "../../style/mixins";
+@import "../../style/colors";
+
+.chat {
+  flex: 2;
+
+  & .chatInfo {
+    height: 50px;
+    background-color: $burgundy;
+    @include display-flex(space-between);
+    padding: 10px;
+
+    & .user_short{
+      @include display-flex;
+      gap: 10px;
+
+      & span{
+        color: $text_light;
+      }
+
+      & img{
+        height: 24px;
+        width: 24px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  & .chatIcons {
+    @include display-flex;
+    gap: 10px;
+  }
+
+  & .messages {
+    background-color: $background;
+    padding: 10px;
+    height: calc(100% - 100px);
+    overflow: auto;
+
+    & .message {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+
+      & .messageInfo {
+        display: flex;
+        flex-direction: column;
+        color: gray;
+        font-weight: 300;
+
+        & img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+
+      & .messageContent {
+        max-width: 80%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        & p {
+          position: relative;
+          background-color: $text_light;
+          padding: 10px 20px 26px 20px;
+          border-radius: 0px 10px 10px 10px;
+          max-width: max-content;
+          min-width: 90px;
+
+          & span{
+            position: absolute;
+            bottom: 6px;
+            right: 20px;
+          }
+        }
+
+        & img {
+          width: 50%;
+        }
+      }
+
+      &.owner {
+        flex-direction: row-reverse;
+
+        & .messageContent {
+          align-items: flex-end;
+
+         & p {
+            background-color: $burgundy;
+            color: $text_light;
+            border-radius: 10px 0px 10px 10px;
+          }
+        }
+      }
+    }
+  }
+
+  & .input {
+    height: 50px;
+    background-color: $burgundy;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & input {
+      width: 100%;
+      border: 1px solid $text_light;
+      padding: 6px 12px;
+      border-radius: 6px;
+      min-height: max-content;
+      outline: none;
+      @include fonts(500, 18px, 18px, $text_light);
+      background-color: $burgundy;
+
+      &::placeholder {
+        color: $text_light;
+      }
+    }
+
+    & .send {
+      @include display-flex;
+      gap: 10px;
+
+     & img {
+        height: 24px;
+        cursor: pointer;
+      }
+
+      & button {
+        border: none;
+        padding: 10px 15px;
+        @include fonts(700, 16px, 16px, $burgundy);
+        background-color: $background;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s, box-shadow 0.3s;
+
+        &:hover{
+          background-color: #020101; /* Darker black on hover */
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Slight shadow effect */
+        }
+      }
+    }
+  }
+}
