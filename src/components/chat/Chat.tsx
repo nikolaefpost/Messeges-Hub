@@ -1,7 +1,7 @@
 import  { useContext } from "react";
 import Messages from "./Messages.tsx";
 import {ChatContext} from "../../context/ChatContext.tsx";
-import { IoMdVideocam, IoIosPersonAdd, IoIosMore } from "react-icons/io";
+import { IoMdVideocam, IoIosPersonAdd, IoIosMore, IoIosContact  } from "react-icons/io";
 import Input from "./Input";
 
 import styles from "./chat.module.scss"
@@ -14,7 +14,7 @@ const Chat = () => {
         <div className={styles.chat}>
             <div className={styles.chatInfo}>
                 <div className={styles.user_short}>
-                    <img src={data.user?.photoURL} alt="photo"/>
+                    {data.user?.photoURL?<img src={data.user?.photoURL} alt="photo"/>:<IoIosContact size={24} color="#fefefe" />}
                     <span>
                     {data.user?.displayName}
                 </span>

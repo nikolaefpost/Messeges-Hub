@@ -16,10 +16,13 @@ export interface IChat {
 }
 
 export interface IMessage {
-    id: string;
     text: string;
-    createdAt: any;
-    user: string;
+    date: {
+        seconds: number;
+        nanoseconds: number;
+    };
+    senderId: string;
+    id: string;
 }
 
 export interface IMessage {

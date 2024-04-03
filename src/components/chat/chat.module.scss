@@ -67,14 +67,15 @@
           position: relative;
           background-color: $text_light;
           padding: 10px 20px 26px 20px;
-          border-radius: 0px 10px 10px 10px;
+          border-radius: 0 10px 10px 10px;
           max-width: max-content;
           min-width: 90px;
 
           & span{
             position: absolute;
             bottom: 6px;
-            right: 20px;
+            right: 10px;
+            @include fonts(500, 12px, 12px, $background);
           }
         }
 
@@ -92,7 +93,7 @@
          & p {
             background-color: $burgundy;
             color: $text_light;
-            border-radius: 10px 0px 10px 10px;
+            border-radius: 10px 0 10px 10px;
           }
         }
       }

@@ -2,7 +2,7 @@ import  { useContext } from 'react'
 import {signOut} from "firebase/auth"
 import { auth } from '../../firebase'
 import { AuthContext } from '../../context/AuthContext';
-import { IoIosLogOut } from "react-icons/io";
+import { IoIosLogOut, IoIosContact } from "react-icons/io";
 
 import styles from "./sidebar.module.scss"
 
@@ -13,7 +13,7 @@ const Navbar = () => {
         <div className={styles.navbar}>
             <span className={styles.logo}>Messages Hub</span>
             <div className={styles.user}>
-                <img src={currentUser?.photoURL ?? ''} alt="" />
+                {currentUser?.photoURL? <img src={currentUser.photoURL} alt=""/>:<IoIosContact />}
                 <span>{currentUser?.displayName}</span>
                 <button onClick={()=>signOut(auth)}>
                     <IoIosLogOut color="#fefefe" size={20} />

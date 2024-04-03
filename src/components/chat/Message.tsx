@@ -5,12 +5,13 @@ import {IMessage} from "../../types";
 import cn from "classnames";
 
 import styles from "./chat.module.scss"
+import {currentTime} from "../../helpers";
 interface MessageProps {
     message: IMessage;
 }
 
 const Message: FC<MessageProps> = ({ message }) => {
-    console.log(message)
+    console.log(new Date(message.date.seconds))
     const { currentUser } = useContext(AuthContext);
     // const { data } = useContext(ChatContext);
 
@@ -34,7 +35,7 @@ const Message: FC<MessageProps> = ({ message }) => {
             </div>
             <div className={styles.messageContent}>
                 <p>{message.text}
-                    <span>now</span>
+                    <span>{currentTime(message.date.seconds)}</span>
                 </p>
                 {message.img && <img src={message.img} alt="" />}
             </div>

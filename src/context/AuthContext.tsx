@@ -15,11 +15,9 @@ interface AuthContextProviderProps {
 
 export const AuthContextProvider = ({children}: AuthContextProviderProps) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null); // Initialize currentUser with null
-    console.log(currentUser)
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
-            console.log(user);
         });
 
         return () => {

@@ -1,4 +1,4 @@
-import { doc, onSnapshot, DocumentSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, DocumentSnapshot, DocumentData } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
@@ -24,7 +24,7 @@ interface ChatInfo {
 
 const Chats: React.FC = () => {
     const [chats, setChats] = useState<ChatInfo>();
-
+    console.log(chats)
     const { currentUser } = useContext(AuthContext);
     const { dispatch } = useContext(ChatContext);
 
@@ -32,8 +32,15 @@ const Chats: React.FC = () => {
         const getChats = () => {
             if (!currentUser) return;
 
-            const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc: DocumentSnapshot<ChatInfo>) => {
-                setChats(doc.data());
+            const userChatDocRef = doc(db, "userChats", currentUser.uid);
+
+            const unsub = onSnapshot(userChatDocRef, (docSnapshot: DocumentSnapshot<DocumentData>) => {
+                if (docSnapshot.exists()) {
+                    setChats(docSnapshot.data() as ChatInfo);
+                } else {
+                    // Handle the case where the document doesn't exist
+                    console.log("Document does not exist");
+                }
             });
 
             return () => {
@@ -42,7 +49,7 @@ const Chats: React.FC = () => {
         };
 
         currentUser?.uid && getChats();
-    }, [currentUser?.uid]);
+    }, [currentUser]);
 
     const handleSelect = (u: UserInfo) => {
         dispatch({ type: "CHANGE_USER", payload: u });
