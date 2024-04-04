@@ -17,8 +17,8 @@ import styles from "./chat.module.scss"
 
 const Input: React.FC = () => {
     const [text, setText] = useState<string>("");
-    const [img, setImg] = useState<File | null>(null);
-    // console.log(img)
+    const [img, setImg] = useState<File[] | []>([]);
+    console.log(img)
 
     const { currentUser } = useContext(AuthContext);
     const { data } = useContext(ChatContext);
@@ -26,62 +26,81 @@ const Input: React.FC = () => {
     const handleSend = async () => {
 
         if (!currentUser || !data.user) return;
-        if (img) {
-            const storageRef = ref(storage, uuid());
 
-            const uploadTask = uploadBytesResumable(storageRef, img);
+        try{
+            if (img) {
+                const downloadURLPromises = img.map((image) => {
+                    const storageRef = ref(storage, uuid());
+                    const uploadTask = uploadBytesResumable(storageRef, image);
 
-            uploadTask.on(
-                "state_changed",
-                (snapshot) => {
-                    console.log(snapshot)
-                    // Handle progress or other states if needed
-                },
-                (error) => {
-                    console.log(error)
-                    // Handle error
-                },
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                        await updateDoc(doc(db, "chats", data.chatId), {
-                            messages: arrayUnion({
-                                id: uuid(),
-                                text,
-                                senderId: currentUser.uid ,
-                                date: Timestamp.now(),
-                                img: downloadURL,
-                            }),
-                        });
+                    return new Promise((resolve, reject) => {
+                        uploadTask.on(
+                            "state_changed",
+                            (snapshot) => {
+                                // Handle state change if necessary
+                            },
+                            (error) => {
+                                console.log(error);
+                                reject(error);
+                            },
+                            () => {
+                                getDownloadURL(uploadTask.snapshot.ref)
+                                    .then((downloadURL) => {
+                                        resolve(downloadURL);
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                        reject(error);
+                                    });
+                            }
+                        );
                     });
-                }
-            );
-        } else {
-            await updateDoc(doc(db, "chats", data.chatId), {
-                messages: arrayUnion({
-                    id: uuid(),
+                });
+                const downloadURLs = await Promise.all(downloadURLPromises);
+
+                await updateDoc(doc(db, "chats", data.chatId), {
+                    messages: arrayUnion({
+                        id: uuid(),
+                        text,
+                        senderId: currentUser.uid,
+                        date: Timestamp.now(),
+                        img: downloadURLs,
+                    }),
+                });
+
+            } else {
+                await updateDoc(doc(db, "chats", data.chatId), {
+                    messages: arrayUnion({
+                        id: uuid(),
+                        text,
+                        senderId: currentUser.uid ,
+                        date: Timestamp.now(),
+                    }),
+                });
+            }
+
+            await updateDoc(doc(db, "userChats", currentUser.uid), {
+                [data.chatId + ".lastMessage"]: {
                     text,
-                    senderId: currentUser.uid ,
-                    date: Timestamp.now(),
-                }),
+                },
+                [data.chatId + ".date"]: serverTimestamp(),
             });
+
+            await updateDoc(doc(db, "userChats", data.user.uid), {
+                [data.chatId + ".lastMessage"]: {
+                    text,
+                },
+                [data.chatId + ".date"]: serverTimestamp(),
+            });
+
+            setText("");
+            setImg(null);
+
+        }catch (error){
+            console.error("Error uploading images:", error);
         }
 
-        await updateDoc(doc(db, "userChats", currentUser.uid), {
-            [data.chatId + ".lastMessage"]: {
-                text,
-            },
-            [data.chatId + ".date"]: serverTimestamp(),
-        });
 
-        await updateDoc(doc(db, "userChats", data.user.uid), {
-            [data.chatId + ".lastMessage"]: {
-                text,
-            },
-            [data.chatId + ".date"]: serverTimestamp(),
-        });
-
-        setText("");
-        setImg(null);
     };
 
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -90,8 +109,11 @@ const Input: React.FC = () => {
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            console.log(e.target.files)
-            setImg(e.target.files[0]);
+            const files: File[] = [];
+            for (let i = 0; i < e.target.files.length; i++) {
+                files.push(e.target.files[i]);
+            }
+            setImg(files);
         }
     };
 

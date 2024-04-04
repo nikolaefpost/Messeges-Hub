@@ -10,6 +10,7 @@ interface MessageProps {
 }
 
 const Message: FC<MessageProps> = ({ message }) => {
+    console.log(message.img)
     const { currentUser } = useContext(AuthContext);
     // const { data } = useContext(ChatContext);
 
@@ -32,7 +33,10 @@ const Message: FC<MessageProps> = ({ message }) => {
             </div>
             <div className={styles.messageContent}>
                 <p>
-                    {message.img && <img src={message.img} alt="" />}
+                    {/*{message.img && <img src={message.img} alt="" />}*/}
+                    {message?.img && message.img.map(img=> (
+                        <img key={img} src={img} alt=""/>
+                    ))}
                     {message.text}
                     <span>{currentTime(message.date.seconds)}</span>
                 </p>
