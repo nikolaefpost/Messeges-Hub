@@ -18,6 +18,7 @@ import styles from "./chat.module.scss"
 const Input: React.FC = () => {
     const [text, setText] = useState<string>("");
     const [img, setImg] = useState<File | null>(null);
+    // console.log(img)
 
     const { currentUser } = useContext(AuthContext);
     const { data } = useContext(ChatContext);
@@ -89,6 +90,7 @@ const Input: React.FC = () => {
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
+            console.log(e.target.files)
             setImg(e.target.files[0]);
         }
     };
@@ -107,6 +109,7 @@ const Input: React.FC = () => {
                     type="file"
                     style={{ display: "none" }}
                     id="file"
+                    multiple
                     onChange={handleFileChange}
                 />
                 <label htmlFor="file">

@@ -1,41 +1,44 @@
-import Home from "./pages/home/Home";
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useContext, ReactNode } from "react";
-import { AuthContext, AuthContextType } from "./context/AuthContext";
-
-function App() {
-    const { currentUser }: AuthContextType = useContext(AuthContext);
+import React, {useContext, useEffect} from "react";
+import {AuthContext} from "./context/AuthContext";
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
+import {Home, Login, Register} from "./pages";
 
 
-    const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-        console.log("App: ",currentUser)
+
+const App = () => {
+    const {currentUser} = useContext(AuthContext);
+    const ProtectedRoute = ({element}: { element: React.ReactNode }) => {
         if (!currentUser) {
-            return <Navigate to="/login" />;
+            return <Navigate to="/login"/>;
         }
-
-        return children;
+        return element;
     };
 
+    const router = createBrowserRouter([
+        {
+            path: "/",
+            element: <ProtectedRoute element={<Home/>}/>,
+        },
+        {
+            path: "/login",
+            element: <Login/>
+        },
+        {
+            path: "/register",
+            element: <Register/>
+        }
+    ]);
+
+    useEffect(() => {
+        // Redirect to Home page when currentUser is available
+        if (currentUser) {
+            router.navigate('/');
+        }
+    }, [currentUser, router]);
+
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/">
-                    <Route
-                        index
-                        element={
-                            <ProtectedRoute>
-                                <Home />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route path="login" element={<Login />} />
-                    <Route path="register" element={<Register />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <RouterProvider router={router}/>
     );
-}
+};
 
 export default App;

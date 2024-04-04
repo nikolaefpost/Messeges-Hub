@@ -34,7 +34,6 @@ const Search: React.FC = () => {
             collection(db, "users"),
             where("displayName", "==", username)
         );
-        console.log(q)
         try {
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {

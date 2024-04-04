@@ -1,5 +1,4 @@
 import firebase from "firebase/compat/app";
-
 export interface IUser {
     uid: string;
     displayName: string;
@@ -20,8 +19,6 @@ export interface IChatInfoData {
     [userId: string]: IChatInfo;
 }
 
-
-
 export interface IMessage {
     text: string;
     date: firebase.firestore.Timestamp;
@@ -29,7 +26,6 @@ export interface IMessage {
     id: string;
     img?: string;
 }
-
 
 export interface ISignInUser {
     email: string;

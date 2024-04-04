@@ -17,7 +17,6 @@ const Chats: React.FC = () => {
             if (!currentUser) return;
 
             const userChatDocRef = doc(db, "userChats", currentUser.uid);
-            console.log(userChatDocRef)
 
             const unsub = onSnapshot(userChatDocRef, (docSnapshot: DocumentSnapshot<DocumentData>) => {
                 if (docSnapshot.exists()) {

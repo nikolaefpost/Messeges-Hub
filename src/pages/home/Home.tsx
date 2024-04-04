@@ -1,8 +1,8 @@
 
-import Sidebar from "../../components/sidebar/Sidebar.tsx";
-import Chat from "../../components/chat/Chat.tsx";
+import {Chat, Sidebar} from "../../components";
 
 import styles from "./home.module.scss"
+
 const Home = () => {
     return (
         <div className={styles.home}>
