@@ -37,7 +37,7 @@ const Input: React.FC = () => {
                         uploadTask.on(
                             "state_changed",
                             (snapshot) => {
-                                // Handle state change if necessary
+                                console.log(snapshot);
                             },
                             (error) => {
                                 console.log(error);
