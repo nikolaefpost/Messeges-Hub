@@ -7,6 +7,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import {Link, useNavigate} from "react-router-dom";
 import {add_pic} from "../../assets";
+// import {setStorageUser} from "../../helpers";
 const Register = () => {
     const [err, setErr] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
@@ -56,6 +57,7 @@ const Register = () => {
 
                         //create empty user chats on firestore
                         await setDoc(doc(db, "userChats", res.user.uid), {});
+                        // setStorageUser({email, password});
                         navigate("/");
                     } catch (err) {
                         console.log(err);

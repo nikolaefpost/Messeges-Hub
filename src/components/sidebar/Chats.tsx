@@ -4,27 +4,11 @@ import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
 import { db } from "../../firebase";
 import styles from "./sidebar.module.scss"
+import {IChatInfoData, IUser} from "../../types";
 
-interface UserInfo {
-    uid: string;
-    displayName: string;
-    photoURL: string;
-}
-
-interface ChatInfo {
-    userInfo: UserInfo;
-    lastMessage?: {
-        text: string;
-    };
-    date: {
-        seconds: number;
-        nanoseconds: number;
-    };
-}
 
 const Chats: React.FC = () => {
-    const [chats, setChats] = useState<ChatInfo>();
-    console.log(chats)
+    const [chats, setChats] = useState<IChatInfoData>();
     const { currentUser } = useContext(AuthContext);
     const { dispatch } = useContext(ChatContext);
 
@@ -33,13 +17,11 @@ const Chats: React.FC = () => {
             if (!currentUser) return;
 
             const userChatDocRef = doc(db, "userChats", currentUser.uid);
+            console.log(userChatDocRef)
 
             const unsub = onSnapshot(userChatDocRef, (docSnapshot: DocumentSnapshot<DocumentData>) => {
                 if (docSnapshot.exists()) {
-                    setChats(docSnapshot.data() as ChatInfo);
-                } else {
-                    // Handle the case where the document doesn't exist
-                    console.log("Document does not exist");
+                    setChats(docSnapshot.data() as IChatInfoData);
                 }
             });
 
@@ -51,7 +33,7 @@ const Chats: React.FC = () => {
         currentUser?.uid && getChats();
     }, [currentUser]);
 
-    const handleSelect = (u: UserInfo) => {
+    const handleSelect = (u: IUser) => {
         dispatch({ type: "CHANGE_USER", payload: u });
     };
 

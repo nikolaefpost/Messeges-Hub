@@ -1,21 +1,17 @@
 import React, {createContext, useContext, useReducer, ReactNode} from "react";
 import {AuthContext} from "./AuthContext";
+import {IUser} from "../types";
 
-interface User {
-    uid?: string;
-    displayName?: string;
-    photoURL?: string;
-    // Define other properties of the user as needed
-}
+
 
 interface ChatState {
     chatId: string;
-    user: User;
+    user: IUser;
 }
 
 interface Action {
     type: string;
-    payload: any; // Adjust payload type as needed
+    payload: IUser; // Adjust payload type as needed
 }
 
 interface ContextValue {
@@ -24,7 +20,7 @@ interface ContextValue {
 }
 
 export const ChatContext = createContext<ContextValue>({
-    data: {chatId: "null", user: {}}, dispatch: () => {
+    data: {chatId: "null", user: {} as IUser}, dispatch: () => {
     }
 });
 
@@ -36,7 +32,7 @@ export const ChatContextProvider = ({children}: ChatContextProviderProps) => {
     const {currentUser} = useContext(AuthContext);
     const INITIAL_STATE: ChatState = {
         chatId: "null",
-        user: {} as User, // Initialize user with empty object
+        user: {} as IUser, // Initialize user with empty object
     };
 
     const chatReducer = (state: ChatState, action: Action): ChatState => {
@@ -45,7 +41,7 @@ export const ChatContextProvider = ({children}: ChatContextProviderProps) => {
                 return {
                     user: action.payload,
                     chatId:
-                        currentUser && currentUser.uid > action.payload.uid
+                        currentUser && currentUser.uid > action.payload?.uid
                             ? currentUser.uid + action.payload.uid
                             : action.payload.uid + (currentUser?.uid || ""),
                 };

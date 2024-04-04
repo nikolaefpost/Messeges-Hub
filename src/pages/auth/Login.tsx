@@ -1,13 +1,14 @@
 
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase.ts";
+import React, {useContext, useState} from "react";
+import {  Link } from "react-router-dom";
+import {AuthContext} from "../../context/AuthContext.tsx";
 
 import styles from "./auth.module.scss"
+// import {setStorageUser} from "../../helpers";
+
 const Login = () => {
     const [err, setErr] = useState<boolean>(false);
-    const navigate = useNavigate();
+    const {signInUser} = useContext(AuthContext)
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -19,16 +20,10 @@ const Login = () => {
         const password = passwordInput.value;
 
         try {
-            await signInWithEmailAndPassword(auth, email, password) .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-                console.log(user)
-                // ...
-            });
-            navigate("/")
-            console.log(email, password)
-        } catch (err) {
-            setErr(true);
+            await signInUser({email, password})
+            // setStorageUser({email, password});
+        }catch (err){
+            setErr(true)
         }
     }
 

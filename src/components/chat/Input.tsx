@@ -23,6 +23,8 @@ const Input: React.FC = () => {
     const { data } = useContext(ChatContext);
 
     const handleSend = async () => {
+
+        if (!currentUser || !data.user) return;
         if (img) {
             const storageRef = ref(storage, uuid());
 
@@ -44,7 +46,7 @@ const Input: React.FC = () => {
                             messages: arrayUnion({
                                 id: uuid(),
                                 text,
-                                senderId: currentUser?.uid || "",
+                                senderId: currentUser.uid ,
                                 date: Timestamp.now(),
                                 img: downloadURL,
                             }),
@@ -57,20 +59,20 @@ const Input: React.FC = () => {
                 messages: arrayUnion({
                     id: uuid(),
                     text,
-                    senderId: currentUser?.uid || "",
+                    senderId: currentUser.uid ,
                     date: Timestamp.now(),
                 }),
             });
         }
 
-        await updateDoc(doc(db, "userChats", currentUser?.uid || ""), {
+        await updateDoc(doc(db, "userChats", currentUser.uid), {
             [data.chatId + ".lastMessage"]: {
                 text,
             },
             [data.chatId + ".date"]: serverTimestamp(),
         });
 
-        await updateDoc(doc(db, "userChats", data.user.uid || ""), {
+        await updateDoc(doc(db, "userChats", data.user.uid), {
             [data.chatId + ".lastMessage"]: {
                 text,
             },

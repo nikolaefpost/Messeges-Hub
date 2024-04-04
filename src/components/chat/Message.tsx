@@ -1,6 +1,5 @@
 import  { FC, useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
-// import { ChatContext } from "../../context/ChatContext";
 import {IMessage} from "../../types";
 import cn from "classnames";
 
@@ -11,7 +10,7 @@ interface MessageProps {
 }
 
 const Message: FC<MessageProps> = ({ message }) => {
-    console.log(new Date(message.date.seconds))
+    console.log(message)
     const { currentUser } = useContext(AuthContext);
     // const { data } = useContext(ChatContext);
 
@@ -24,7 +23,6 @@ const Message: FC<MessageProps> = ({ message }) => {
     return (
         <div
             ref={ref}
-            // className={`message ${message.senderId === currentUser?.uid ? "owner" : ""}`}
             className={cn(styles.message, {[styles.owner]: message.senderId === currentUser?.uid})}
         >
             <div className={styles.messageInfo}>
@@ -34,10 +32,12 @@ const Message: FC<MessageProps> = ({ message }) => {
                 />}
             </div>
             <div className={styles.messageContent}>
-                <p>{message.text}
+                <p>
+                    {message.img && <img src={message.img} alt="" />}
+                    {message.text}
                     <span>{currentTime(message.date.seconds)}</span>
                 </p>
-                {message.img && <img src={message.img} alt="" />}
+
             </div>
         </div>
     );

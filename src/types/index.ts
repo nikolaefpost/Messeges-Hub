@@ -1,32 +1,37 @@
-import {ReactNode} from "react";
+import firebase from "firebase/compat/app";
 
-export interface IAuth {
-    setIsAuth: (isAuth: boolean) => void;
+export interface IUser {
+    uid: string;
+    displayName: string;
+    photoURL: string;
+    email: string;
+    // Define other properties of the user as needed
 }
 
-export interface IAppWrapper {
-    children: ReactNode;
-    setIsAuth: (isAuth: boolean) => void;
-    isAuth: boolean;
-    setIsInChat: (isAuth: boolean ) => void;
+export interface IChatInfo {
+    userInfo: IUser;
+    lastMessage?: {
+        text: string;
+    };
+    date: firebase.firestore.Timestamp;
 }
 
-export interface IChat {
-    room: string;
+export interface IChatInfoData {
+    [userId: string]: IChatInfo;
 }
+
+
 
 export interface IMessage {
     text: string;
-    date: {
-        seconds: number;
-        nanoseconds: number;
-    };
+    date: firebase.firestore.Timestamp;
     senderId: string;
     id: string;
+    img?: string;
 }
 
-export interface IMessage {
-    senderId: string;
-    text: string;
-    img?: string;
+
+export interface ISignInUser {
+    email: string;
+    password: string;
 }

@@ -4,10 +4,16 @@ import { auth } from '../../firebase'
 import { AuthContext } from '../../context/AuthContext';
 import { IoIosLogOut, IoIosContact } from "react-icons/io";
 
-import styles from "./sidebar.module.scss"
+import styles from "./sidebar.module.scss";
+// import {setNullStorageUser} from "../../helpers";
 
 const Navbar = () => {
     const {currentUser} = useContext(AuthContext)
+
+    const userSignOut = () => {
+        signOut(auth);
+        // setNullStorageUser()
+    }
 
     return (
         <div className={styles.navbar}>
@@ -15,7 +21,7 @@ const Navbar = () => {
             <div className={styles.user}>
                 {currentUser?.photoURL? <img src={currentUser.photoURL} alt=""/>:<IoIosContact />}
                 <span>{currentUser?.displayName}</span>
-                <button onClick={()=>signOut(auth)}>
+                <button onClick={userSignOut}>
                     <IoIosLogOut color="#fefefe" size={20} />
                 </button>
             </div>

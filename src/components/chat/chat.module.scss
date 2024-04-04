@@ -80,7 +80,7 @@
         }
 
         & img {
-          width: 50%;
+          width: 100%;
         }
       }
 
@@ -94,6 +94,9 @@
             background-color: $burgundy;
             color: $text_light;
             border-radius: 10px 0 10px 10px;
+           @include display-flex(flex-start, flex-start);
+           flex-direction: column;
+           gap: 10px;
           }
         }
       }

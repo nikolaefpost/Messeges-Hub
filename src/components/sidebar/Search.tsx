@@ -14,32 +14,32 @@ import {
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
 import { IoIosSearch } from "react-icons/io";
+import {IUser} from "../../types";
 
 import styles from "./sidebar.module.scss"
 
-interface User {
-    uid: string;
-    displayName: string;
-    photoURL: string;
-}
+
 
 const Search: React.FC = () => {
     const [username, setUsername] = useState<string>("");
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<IUser | null>(null);
     const [err, setErr] = useState<boolean>(false);
 
     const { currentUser } = useContext(AuthContext);
 
     const handleSearch = async () => {
+        if(!username.trim()) return;
+
         const q = query(
             collection(db, "users"),
             where("displayName", "==", username)
         );
-
+        console.log(q)
         try {
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
-                setUser(doc.data() as User);
+                console.log(doc.data())
+                setUser(doc.data() as IUser);
             });
         } catch (err) {
             setErr(true);
@@ -97,7 +97,7 @@ const Search: React.FC = () => {
     return (
         <div className={styles.search}>
             <div className={styles.searchForm}>
-                <IoIosSearch size={18} color="#4e4e50" />
+                <div onClick={handleSearch}><IoIosSearch size={18} color="#4e4e50" /></div>
                 <input
                     type="text"
                     placeholder="Find a user"
