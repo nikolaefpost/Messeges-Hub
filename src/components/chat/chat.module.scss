@@ -127,6 +127,7 @@
     }
 
     & .send {
+      position: relative;
       @include display-flex;
       gap: 10px;
 
@@ -148,6 +149,13 @@
           background-color: #020101; /* Darker black on hover */
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Slight shadow effect */
         }
+      }
+
+      & .boot{
+        position: absolute;
+        @include fonts(700, 12px, 12px, $text_light);
+        bottom: -5px;
+        right: 73px;
       }
     }
   }

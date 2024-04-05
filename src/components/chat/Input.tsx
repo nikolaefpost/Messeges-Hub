@@ -18,7 +18,8 @@ import styles from "./chat.module.scss"
 const Input: React.FC = () => {
     const [text, setText] = useState<string>("");
     const [img, setImg] = useState<File[] | []>([]);
-    console.log(img)
+    const [uploadProgress, setUploadProgress] = useState<number>(0);
+
 
     const { currentUser } = useContext(AuthContext);
     const { data } = useContext(ChatContext);
@@ -37,7 +38,7 @@ const Input: React.FC = () => {
                         uploadTask.on(
                             "state_changed",
                             (snapshot) => {
-                                console.log(snapshot);
+                                setUploadProgress((Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100))
                             },
                             (error) => {
                                 console.log(error);
@@ -95,6 +96,7 @@ const Input: React.FC = () => {
 
             setText("");
             setImg([]);
+            setUploadProgress(0);
 
         }catch (error){
             console.error("Error uploading images:", error);
@@ -138,6 +140,9 @@ const Input: React.FC = () => {
                     <img src={imgIcon} alt="" />
                 </label>
                 <button onClick={handleSend}>Send</button>
+                {uploadProgress > 0 && ( // Display progress only if it's greater than 0
+                    <div className={styles.boot}>{uploadProgress}%</div>
+                )}
             </div>
         </div>
     );
