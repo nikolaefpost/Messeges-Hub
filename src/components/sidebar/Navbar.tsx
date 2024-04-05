@@ -19,8 +19,10 @@ const Navbar = () => {
         <div className={styles.navbar}>
             <span className={styles.logo}>Messages Hub</span>
             <div className={styles.user}>
-                {currentUser?.photoURL? <img src={currentUser.photoURL} alt=""/>:<IoIosContact />}
-                <span>{currentUser?.displayName}</span>
+                <div className={styles.short_user}>
+                    {currentUser?.photoURL? <img src={currentUser.photoURL} alt=""/>:<IoIosContact />}
+                    <span>{currentUser?.displayName}</span>
+                </div>
                 <button onClick={userSignOut}>
                     <IoIosLogOut color="#fefefe" size={20} />
                 </button>

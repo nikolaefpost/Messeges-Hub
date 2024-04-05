@@ -26,23 +26,23 @@
       @include display-flex;
       gap: 10px;
 
-      & img {
-        //background-color: #ddddf7;
-        height: 24px;
-        width: 24px;
-        border-radius: 50%;
-        object-fit: cover;
+      & .short_user{
+        @include display-flex;
+        gap: 10px;
+
+        & img {
+          //background-color: #ddddf7;
+          height: 24px;
+          width: 24px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
       }
 
       & button {
         background-color: transparent;
         border: none;
         cursor: pointer;
-
-        @include tablet {
-          position: absolute;
-          bottom: 10px;
-        }
       }
     }
   }

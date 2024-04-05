@@ -1,13 +1,17 @@
 import { doc, onSnapshot, DocumentSnapshot, DocumentData } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
+import  {FC, useContext, useEffect, useState} from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
 import { db } from "../../firebase";
 import styles from "./sidebar.module.scss"
 import {IChatInfoData, IUser} from "../../types";
 
+interface IChats {
+    setIsSidebar?: (boolean: boolean)=>void
+}
 
-const Chats: React.FC = () => {
+
+const Chats: FC<IChats> = ({setIsSidebar}) => {
     const [chats, setChats] = useState<IChatInfoData>();
     const { currentUser } = useContext(AuthContext);
     const { dispatch } = useContext(ChatContext);
@@ -34,6 +38,7 @@ const Chats: React.FC = () => {
 
     const handleSelect = (u: IUser) => {
         dispatch({ type: "CHANGE_USER", payload: u });
+        if(setIsSidebar) setIsSidebar(false);
     };
 
     return (
