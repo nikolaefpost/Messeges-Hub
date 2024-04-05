@@ -24,7 +24,7 @@ export interface IMessage {
     date: firebase.firestore.Timestamp;
     senderId: string;
     id: string;
-    img?: string;
+    img?: string[];
 }
 
 export interface ISignInUser {

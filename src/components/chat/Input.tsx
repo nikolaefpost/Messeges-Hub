@@ -94,7 +94,7 @@ const Input: React.FC = () => {
             });
 
             setText("");
-            setImg(null);
+            setImg([]);
 
         }catch (error){
             console.error("Error uploading images:", error);
