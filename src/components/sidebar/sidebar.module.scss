@@ -6,6 +6,7 @@
   background-color: $background;
   position: relative;
   border-right: 2px solid $pink;
+  height: 95%;
 
   & .navbar {
     @include display-flex(space-between);

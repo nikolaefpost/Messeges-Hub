@@ -19,13 +19,7 @@
     }
     @include mobile{
       width: 100%;
-      height: 95vh;
-
+      align-items: flex-end;
     }
-
-  }
-  @include mobile{
-    align-items: flex-end;
-
   }
 }
