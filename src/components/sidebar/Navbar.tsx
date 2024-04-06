@@ -5,11 +5,12 @@ import { AuthContext } from '../../context/AuthContext';
 import { IoIosLogOut, IoIosContact } from "react-icons/io";
 
 import styles from "./sidebar.module.scss";
+import {useMediaQuery} from "../../hooks/useMediaQuery.ts";
 // import {setNullStorageUser} from "../../helpers";
 
 const Navbar = () => {
     const {currentUser} = useContext(AuthContext)
-
+    const media = useMediaQuery(480, 0);
     const userSignOut = () => {
         signOut(auth);
         // setNullStorageUser()
@@ -24,7 +25,7 @@ const Navbar = () => {
                     <span>{currentUser?.displayName}</span>
                 </div>
                 <button onClick={userSignOut}>
-                    <IoIosLogOut color="#fefefe" size={20} />
+                    <IoIosLogOut color="#fefefe" size={media?30:20} />
                 </button>
             </div>
         </div>

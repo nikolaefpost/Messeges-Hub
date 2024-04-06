@@ -97,41 +97,26 @@
   }
 
   @include tablet {
+    border-bottom: 20px solid $burgundy;
 
     & .navbar {
-      @include display-flex(space-between);
-      background-color: $burgundy;
-      height: 80px;
-      padding: 40px 10px 10px 10px;
-      @include fonts(500, 18px, 18px, $text_light);
+      height: 60px;
+      padding: 15px 20px;
 
       & .logo {
         display: none;
       }
 
-
-
       & .user {
-        @include display-flex;
-        gap: 10px;
+        width: 100%;
+        @include display-flex(space-between);
 
         & .short_user{
-          @include display-flex;
-          gap: 10px;
 
           & img {
-            //background-color: #ddddf7;
-            height: 24px;
-            width: 24px;
-            border-radius: 50%;
-            object-fit: cover;
+            height: 30px;
+            width: 30px;
           }
-        }
-
-        & button {
-          background-color: transparent;
-          border: none;
-          cursor: pointer;
         }
       }
     }
