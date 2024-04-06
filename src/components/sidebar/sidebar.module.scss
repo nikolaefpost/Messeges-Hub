@@ -16,11 +16,9 @@
 
     & .logo {
       font-weight: bold;
-
-      @include tablet {
-        display: none;
-      }
     }
+
+
 
     & .user {
       @include display-flex;
@@ -94,6 +92,47 @@
 
       & p {
         @include fonts(500, 14px, 14px, $text_dark);
+      }
+    }
+  }
+
+  @include tablet {
+
+    & .navbar {
+      @include display-flex(space-between);
+      background-color: $burgundy;
+      height: 80px;
+      padding: 40px 10px 10px 10px;
+      @include fonts(500, 18px, 18px, $text_light);
+
+      & .logo {
+        display: none;
+      }
+
+
+
+      & .user {
+        @include display-flex;
+        gap: 10px;
+
+        & .short_user{
+          @include display-flex;
+          gap: 10px;
+
+          & img {
+            //background-color: #ddddf7;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+
+        & button {
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+        }
       }
     }
   }
