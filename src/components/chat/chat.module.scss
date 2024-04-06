@@ -159,4 +159,8 @@
       }
     }
   }
+
+  @include mobile{
+    height: 95%;
+  }
 }
