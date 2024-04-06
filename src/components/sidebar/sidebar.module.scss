@@ -96,8 +96,8 @@
     }
   }
 
-  @include tablet {
-    border-bottom: 20px solid $burgundy;
+  @include mobile {
+    border-bottom: 40px solid $burgundy;
 
     & .navbar {
       height: 60px;

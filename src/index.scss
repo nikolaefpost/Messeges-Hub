@@ -5,6 +5,7 @@
 
   font-family: "Raleway", sans-serif;
   font-size: 16px;
+
 }
 
 h1,
@@ -35,4 +36,8 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+#root{
+
 }
