@@ -3,6 +3,7 @@
 
 .chat {
   flex: 2;
+  height: 100%;
 
   & .chatInfo {
     height: 50px;
@@ -160,7 +161,7 @@
     }
   }
 
-  @include mobile{
-    height: 95%;
-  }
+  //@include mobile{
+  //  height: 99%;
+  //}
 }

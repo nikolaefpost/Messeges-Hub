@@ -2,6 +2,7 @@
 @import "../../style/colors";
 
 .sidebar {
+  height: 100%;
   flex: 1;
   background-color: $background;
   position: relative;
@@ -99,7 +100,7 @@
 
   @include mobile {
     border-bottom: 40px solid $burgundy;
-    height: 95%;
+    //height: 95%;
 
     & .navbar {
       height: 60px;
