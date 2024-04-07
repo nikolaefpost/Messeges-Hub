@@ -16,8 +16,12 @@ const Home = () => {
                 </div>
             </div> :
             <div className={styles.home}>
-                <div className={styles.container}>
-                    {isSidebar?<Sidebar setIsSidebar={setIsSidebar}/>:<Chat setIsSidebar={setIsSidebar} />}
+                <div className={styles.container} style={{alignItems:isSidebar? "flex-start": "flex-end"}}>
+                    {
+                        isSidebar?
+                            <Sidebar setIsSidebar={setIsSidebar}/>
+                            :<Chat setIsSidebar={setIsSidebar} />
+                    }
                 </div>
             </div>
     );

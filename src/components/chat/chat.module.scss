@@ -161,7 +161,7 @@
     }
   }
 
-  //@include mobile{
-  //  height: 99%;
-  //}
+  @include mobile{
+    height: 95%;
+  }
 }
