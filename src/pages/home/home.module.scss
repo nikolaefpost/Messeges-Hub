@@ -5,6 +5,7 @@
   background-color: $background;
   height: 100vh;
   @include display-flex;
+  overflow-y: auto;
 
   .container {
     border: 3px solid $burgundy;

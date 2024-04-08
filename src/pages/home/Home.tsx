@@ -4,10 +4,13 @@ import {useMediaQuery} from "../../hooks/useMediaQuery.ts";
 import {useState} from "react";
 
 import styles from "./home.module.scss"
+import {useBrowserHeight} from "../../hooks/useBrowserHeaderHeight.ts";
 
 const Home = () => {
     const [isSidebar, setIsSidebar] = useState(true)
     const media = useMediaQuery(480, 0);
+    const heightCur = useBrowserHeight()
+    console.log(heightCur)
 
     return (!media ?
             <div className={styles.home}>
@@ -17,7 +20,7 @@ const Home = () => {
                 </div>
             </div> :
             <div className={styles.home}>
-                <div className={styles.container} style={{alignItems:isSidebar? "flex-start": "flex-end"}}>
+                <div className={styles.container} >
                     {
                         isSidebar?
                             <Sidebar setIsSidebar={setIsSidebar}/>

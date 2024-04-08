@@ -5,7 +5,7 @@ import {IoMdVideocam, IoIosPersonAdd, IoIosMore, IoIosContact, IoMdReturnLeft} f
 import Input from "./Input";
 
 import styles from "./chat.module.scss";
-import {useBrowserHeaderHeight} from "../../hooks/useBrowserHeaderHeight.ts";
+import {useBrowserHeight} from "../../hooks/useBrowserHeaderHeight.ts";
 
 interface IChat {
     setIsSidebar?: (boolean: boolean) => void
@@ -14,7 +14,7 @@ interface IChat {
 
 const Chat: FC<IChat> = ({setIsSidebar}) => {
     const {data} = useContext(ChatContext);
-    const h = useBrowserHeaderHeight();
+    const h = useBrowserHeight()
     // const handleBackSidebar = () => {
     //     if(setIsSidebar) setIsSidebar(false);
     // }
