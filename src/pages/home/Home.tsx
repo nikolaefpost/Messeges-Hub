@@ -8,6 +8,7 @@ import styles from "./home.module.scss"
 const Home = () => {
     const [isSidebar, setIsSidebar] = useState(true)
     const media = useMediaQuery(480, 0);
+
     return (!media ?
             <div className={styles.home}>
                 <div className={styles.container}>

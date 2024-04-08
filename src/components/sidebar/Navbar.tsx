@@ -6,10 +6,12 @@ import { IoIosLogOut, IoIosContact } from "react-icons/io";
 
 import styles from "./sidebar.module.scss";
 import {useMediaQuery} from "../../hooks/useMediaQuery.ts";
+import {useBrowserHeaderHeight} from "../../hooks/useBrowserHeaderHeight.ts";
 // import {setNullStorageUser} from "../../helpers";
 
 const Navbar = () => {
     const {currentUser} = useContext(AuthContext)
+    const h = useBrowserHeaderHeight();
     const media = useMediaQuery(480, 0);
     const userSignOut = () => {
         signOut(auth);
@@ -23,6 +25,7 @@ const Navbar = () => {
                 <div className={styles.short_user}>
                     {currentUser?.photoURL? <img src={currentUser.photoURL} alt=""/>:<IoIosContact />}
                     <span>{currentUser?.displayName}</span>
+                    {h}
                 </div>
                 <button onClick={userSignOut}>
                     <IoIosLogOut color="#fefefe" size={media?30:20} />
