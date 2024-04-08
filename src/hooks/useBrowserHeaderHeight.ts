@@ -1,13 +1,11 @@
 import {  useState, useLayoutEffect } from 'react';
 
-export const useBrowserHeight = () => {
-    const [browserHeaderHeight, setBrowserHeaderHeight] = useState(0);
+export const useScreenHeight = () => {
+    const [screenHeight, setScreenHeight] = useState(0);
 
     useLayoutEffect(() => {
         const updateHeight = () => {
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
-            setBrowserHeaderHeight(documentHeight - windowHeight);
+            setScreenHeight(screen.height);
         };
 
         // Initial height calculation
@@ -25,9 +23,10 @@ export const useBrowserHeight = () => {
         };
     }, []);
 
-    return browserHeaderHeight;
+    return screenHeight;
 };
 
+// Debounce utility function
 function debounce<T extends (...args: never[]) => void>(func: T, wait: number) {
     let timeout: NodeJS.Timeout | undefined;
 
