@@ -35,7 +35,7 @@ const Home = () => {
             <div className={styles.home}>
                 <div className={styles.container} >
                     {
-                        !isSidebar?
+                        isSidebar?
                             <Sidebar setIsSidebar={setIsSidebar}/>
                             :<Chat setIsSidebar={setIsSidebar} />
                     }
