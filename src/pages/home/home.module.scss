@@ -18,9 +18,16 @@
     @include tablet {
       width: 90%;
     }
-    @include mobile{
+
+  }
+
+  @include mobile{
+    align-items: flex-end;
+
+    & .container{
       width: 100%;
-      //align-items: flex-end;
+      height: calc(100% - 56px);
     }
+
   }
 }
