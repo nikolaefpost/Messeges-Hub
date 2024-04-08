@@ -5,7 +5,7 @@ export const useScreenHeight = () => {
 
     useLayoutEffect(() => {
         const updateHeight = () => {
-            setScreenHeight(screen.height);
+            setScreenHeight(screen.height - 72);
         };
 
         // Initial height calculation
