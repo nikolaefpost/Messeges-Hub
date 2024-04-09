@@ -162,6 +162,7 @@
   }
 
   @include mobile{
+    position: relative;
 
     & .chatInfo {
       height: 60px;
