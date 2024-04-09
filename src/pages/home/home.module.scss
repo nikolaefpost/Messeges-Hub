@@ -3,7 +3,7 @@
 
 .home {
   background-color: $background;
-  //height: 100vh;
+  height: 100vh;
   @include display-flex;
   overflow-y: auto;
 
