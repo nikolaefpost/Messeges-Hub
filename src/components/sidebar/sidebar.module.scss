@@ -70,35 +70,35 @@
 
   & .chats{
     overflow: auto;
+  }
 
-    & .userChat {
-      padding: 10px;
-      @include display-flex(flex-start);
-      gap: 10px;
-      cursor: pointer;
-      overflow-y: auto;
-      //border-bottom: 1px solid $text_dark;
+  & .userChat {
+    padding: 10px;
+    @include display-flex(flex-start);
+    gap: 10px;
+    cursor: pointer;
+    overflow-y: auto;
+    //border-bottom: 1px solid $text_dark;
 
-      &:hover {
-        background-color: $background_hover;
+    &:hover {
+      background-color: $background_hover;
+    }
+
+    & img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    & .userChatInfo {
+
+      & span {
+        @include fonts(500, 16px, 16px, $text_light);
       }
 
-      & img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-
-      & .userChatInfo {
-
-        & span {
-          @include fonts(500, 16px, 16px, $text_light);
-        }
-
-        & p {
-          @include fonts(500, 14px, 14px, $text_dark);
-        }
+      & p {
+        @include fonts(500, 14px, 14px, $text_dark);
       }
     }
   }
