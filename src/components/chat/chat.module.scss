@@ -169,30 +169,20 @@
       top: 0;
       left: 0;
       width: 100%;
-      background-color: $burgundy;
-      @include display-flex(space-between);
-      padding: 10px;
-
-      & .user_short{
-        @include display-flex;
-        gap: 10px;
-
-        & span{
-          color: $text_light;
-        }
-
-        & img{
-          height: 24px;
-          width: 24px;
-          object-fit: cover;
-          border-radius: 50%;
-        }
-      }
     }
 
 
     & .messages{
       height: calc(100% - 50px);
+      padding: 60px 10px;
     }
+
+    & .input{
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+
   }
 }
