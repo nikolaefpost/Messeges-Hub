@@ -68,38 +68,45 @@
     }
   }
 
-  & .userChat {
-    padding: 10px;
-    @include display-flex(flex-start);
-    gap: 10px;
-    cursor: pointer;
-    overflow-y: auto;
-    //border-bottom: 1px solid $text_dark;
+  & .chats{
+    overflow: auto;
 
-    &:hover {
-      background-color: $background_hover;
-    }
+    & .userChat {
+      padding: 10px;
+      @include display-flex(flex-start);
+      gap: 10px;
+      cursor: pointer;
+      overflow-y: auto;
+      //border-bottom: 1px solid $text_dark;
 
-    & img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    & .userChatInfo {
-
-      & span {
-        @include fonts(500, 16px, 16px, $text_light);
+      &:hover {
+        background-color: $background_hover;
       }
 
-      & p {
-        @include fonts(500, 14px, 14px, $text_dark);
+      & img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      & .userChatInfo {
+
+        & span {
+          @include fonts(500, 16px, 16px, $text_light);
+        }
+
+        & p {
+          @include fonts(500, 14px, 14px, $text_dark);
+        }
       }
     }
   }
 
+
+
   @include mobile {
+    position: relative;
     //border-bottom: 40px solid $burgundy;
     //height: 95%;
 
@@ -128,5 +135,18 @@
         }
       }
     }
+
+    & .search{
+      border-top: 1px solid $burgundy;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    & .chats{
+      padding: 130px 10px 60px;
+    }
+
   }
 }
