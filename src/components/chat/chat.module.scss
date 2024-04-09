@@ -170,12 +170,13 @@
       top: 0;
       left: 0;
       width: 100%;
+      z-index: 10;
     }
 
 
     & .messages{
       height: calc(100% - 50px);
-      padding: 110px 10px 60px;
+      padding: 130px 10px 60px;
     }
 
     & .input{
