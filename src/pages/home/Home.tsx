@@ -10,7 +10,6 @@ const Home = () => {
     const [isSidebar, setIsSidebar] = useState(true)
     const media = useMediaQuery(480, 0);
     const heightCur = useScreenHeight()
-    console.log(heightCur)
 
     const homeRef = useRef<HTMLDivElement>(null)
 
