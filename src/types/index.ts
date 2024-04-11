@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import {User} from "firebase/auth";
 import {IconType} from "react-icons";
+
 // export interface IUser {
 //     uid: string;
 //     displayName: string;

@@ -18,6 +18,8 @@ const Modal: FC<IModal> = ({showModal, onModalClose, children}) => {
                 <div className={styles.modal}>
                     <div className={styles.wrapper}/>
                     <div className={styles.content}>
+                        <div className={styles.first}/>
+                        <div className={styles.second}/>
                         <span onClick={onModalClose} className={styles.cross}><IoIosClose size={media? 45: 24}/></span>
                         {children}
                     </div>

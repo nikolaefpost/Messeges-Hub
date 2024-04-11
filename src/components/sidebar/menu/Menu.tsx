@@ -51,7 +51,7 @@ const Menu: FC<IMenu> = ({media}) => {
         }
     };
     const {currentUser} = useContext(AuthContext)
-    console.log(currentUser)
+
     return (
         <motion.div
             variants={menu}
@@ -67,7 +67,7 @@ const Menu: FC<IMenu> = ({media}) => {
                 ))}
             </motion.ul>
             <Modal showModal={modal} onModalClose={()=>setModal(false)}>
-                <Settings/>
+                <Settings currentUser={currentUser} />
             </Modal>
 
         </motion.div>

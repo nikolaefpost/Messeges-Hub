@@ -23,20 +23,33 @@
   & .content {
     position: relative;
     //width: 600px;
-    background: $text_light;
+    //background: linear-gradient(to bottom, $background 140px, $background_hover);
     z-index: 102;
     padding: 50px 100px;
+
+    & .first{
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 140px;
+      width: 100%;
+      background: $background;
+    }
+
+    & .second{
+      position: absolute;
+      top: 140px;
+      left: 0;
+      height: calc(100% - 140px);
+      width: 100%;
+      background: linear-gradient(to bottom, $background, $background_hover);
+    }
 
     & .cross {
       position: absolute;
       top: 20px;
       right: 20px;
-      color: $burgundy;
-
-      //& svg {
-      //  width: 25px;
-      //  height: 25px;
-      //}
+      color: $text_light;
     }
   }
 
@@ -45,15 +58,12 @@
     & .content {
       width: 100%;
       height: 100%;
+      padding: 60px 20px 20px;
 
       & .cross {
-        position: absolute;
-        top: 3px;
-        right: 3px;
-        color: $burgundy;
+        top: 9px;
+        right: 9px;
       }
     }
-
-
   }
 }

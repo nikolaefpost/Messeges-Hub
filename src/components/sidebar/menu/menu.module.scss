@@ -77,5 +77,26 @@
 }
 
 .settings{
-  border: 1px solid red;
+  position: relative;
+  z-index: 1000;
+
+  & .header_set{
+    @include display-flex(flex-start);
+    gap: 20px;
+    border-bottom: 1px solid $text_light;
+    padding-bottom: 10px;
+
+
+    & img{
+      height: 80px;
+      width: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid $text_light;
+    }
+
+    & span{
+      @include fonts(700, 18px, 18px, $text_light);
+    }
+  }
 }
