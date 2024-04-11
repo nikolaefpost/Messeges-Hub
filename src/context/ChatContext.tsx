@@ -1,17 +1,18 @@
 import React, {createContext, useContext, useReducer, ReactNode} from "react";
 import {AuthContext} from "./AuthContext";
-import {IUser} from "../types";
+import {User} from "firebase/auth";
+
 
 
 
 interface ChatState {
     chatId: string;
-    user: IUser;
+    user: User;
 }
 
 interface Action {
     type: string;
-    payload: IUser; // Adjust payload type as needed
+    payload: User; // Adjust payload type as needed
 }
 
 interface ContextValue {
@@ -20,7 +21,7 @@ interface ContextValue {
 }
 
 export const ChatContext = createContext<ContextValue>({
-    data: {chatId: "null", user: {} as IUser}, dispatch: () => {
+    data: {chatId: "null", user: {} as User}, dispatch: () => {
     }
 });
 
@@ -32,7 +33,7 @@ export const ChatContextProvider = ({children}: ChatContextProviderProps) => {
     const {currentUser} = useContext(AuthContext);
     const INITIAL_STATE: ChatState = {
         chatId: "null",
-        user: {} as IUser, // Initialize user with empty object
+        user: {} as User, // Initialize user with empty object
     };
 
     const chatReducer = (state: ChatState, action: Action): ChatState => {
