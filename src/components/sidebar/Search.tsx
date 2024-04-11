@@ -14,15 +14,15 @@ import {
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
 import { IoIosSearch } from "react-icons/io";
-import {IUser} from "../../types";
 
 import styles from "./sidebar.module.scss"
+import {User} from "firebase/auth";
 
 
 
 const Search: React.FC = () => {
     const [username, setUsername] = useState<string>("");
-    const [user, setUser] = useState<IUser | null>(null);
+    const [user, setUser] = useState<User | null>(null);
     const [err, setErr] = useState<boolean>(false);
 
     const { currentUser } = useContext(AuthContext);
@@ -38,7 +38,7 @@ const Search: React.FC = () => {
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
                 console.log(doc.data())
-                setUser(doc.data() as IUser);
+                setUser(doc.data() as User);
             });
         } catch (err) {
             setErr(true);
@@ -108,7 +108,7 @@ const Search: React.FC = () => {
             {err && <span>User not found!</span>}
             {user && (
                 <div className={styles.userChat} onClick={handleSelect}>
-                    <img src={user.photoURL} alt="photo" />
+                    {user.photoURL &&<img src={user.photoURL} alt="photo"/>}
                     <div className={styles.userChatInfo}>
                         <span>{user.displayName}</span>
                     </div>
