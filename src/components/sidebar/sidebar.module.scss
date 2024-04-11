@@ -8,25 +8,43 @@
   position: relative;
   border-right: 2px solid $pink;
 
+  & .background {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: calc(33.3% + 2px);
+    background: $burgundy;
+  }
 
   & .navbar {
     @include display-flex(space-between);
     background-color: $burgundy;
     height: 50px;
-    padding: 10px;
+    padding: 15px 20px 15px 50px;
     @include fonts(500, 18px, 18px, $text_light);
 
     & .logo {
       font-weight: bold;
     }
 
+    & .background {
+      z-index: 1;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background: $burgundy;
+    }
 
 
     & .user {
       @include display-flex;
       gap: 10px;
 
-      & .short_user{
+      & .short_user {
         @include display-flex;
         gap: 10px;
 
@@ -68,7 +86,7 @@
     }
   }
 
-  & .chats{
+  & .chats {
     overflow: auto;
   }
 
@@ -104,11 +122,18 @@
   }
 
 
-
   @include mobile {
     position: relative;
-    //border-bottom: 40px solid $burgundy;
-    //height: 95%;
+
+    & .background {
+      z-index: 1;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background: $burgundy;
+    }
 
     & .navbar {
       position: fixed;
@@ -116,7 +141,7 @@
       left: 0;
       width: 100%;
       height: 60px;
-      padding: 15px 20px;
+      padding: 15px 20px 15px 50px;
 
       & .logo {
         display: none;
@@ -126,7 +151,7 @@
         width: 100%;
         @include display-flex(space-between);
 
-        & .short_user{
+        & .short_user {
 
           & img {
             height: 30px;
@@ -136,17 +161,18 @@
       }
     }
 
-    & .search{
+    & .search {
       border-top: 1px solid $burgundy;
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
+      z-index: 0;
     }
 
-    & .chats{
+    & .chats {
       padding: 70px 10px 60px;
     }
-
   }
 }
+

@@ -19,7 +19,7 @@ const Home = () => {
 
         // Checking if the reference exists
         if (currentRef) {
-            // Setting styles based on the heightCur prop
+            // Settings styles based on the heightCur prop
             currentRef.style.height = `${heightCur}px`;
         }
     }, [heightCur]);

@@ -1,14 +1,17 @@
 import firebase from "firebase/compat/app";
-export interface IUser {
-    uid: string;
-    displayName: string;
-    photoURL: string;
-    email: string;
-    // Define other properties of the user as needed
-}
+import {User} from "firebase/auth";
+import {IconType} from "react-icons";
+import {menuItems} from "../dataApp.ts";
+// export interface IUser {
+//     uid: string;
+//     displayName: string;
+//     photoURL: string;
+//     email: string;
+//     // Define other properties of the user as needed
+// }
 
 export interface IChatInfo {
-    userInfo: IUser;
+    userInfo: User;
     lastMessage?: {
         text: string;
     };
@@ -30,4 +33,10 @@ export interface IMessage {
 export interface ISignInUser {
     email: string;
     password: string;
+}
+
+export interface IMenuItem {
+    id: number,
+    title: string,
+    icon: IconType,
 }

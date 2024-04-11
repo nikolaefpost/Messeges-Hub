@@ -1,0 +1,81 @@
+@import "../../../style/mixins";
+@import "../../../style/colors";
+
+.menu_icon {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 2;
+  background: transparent;
+  border: none;
+  @include display-flex;
+  color: $text_light;
+  margin-right: 10px;
+
+  & svg {
+    fill: $text_light !important;
+  }
+
+  @include mobile {
+    top: 17px;
+  }
+}
+
+.menu {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: calc(33.3% + 2px);
+  @include fonts(500, 18px, 18px, $text_light);
+  overflow: hidden;
+  z-index: 10;
+  padding: 0 12px;
+
+
+  & .user_short_info {
+    @include display-flex(flex-start, flex-start);
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 20px;
+
+
+    & img {
+      height: 80px;
+      width: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    & .display_name {
+      @include fonts(500, 24px, 24px, $text_light);
+    }
+
+    & .mail {
+      @include fonts(500, 24px, 24px, $text_dark);
+    }
+  }
+
+  & .menu_item {
+    margin-top: 30px;
+    list-style-type: none;
+    border-top: 1px solid $text_light;
+    padding: 30px 20px;
+
+    & li{
+      @include display-flex(flex-start);
+      gap: 20px;
+
+      & .title{
+        @include fonts(500, 24px, 24px, $text_light);
+      }
+    }
+
+  }
+  @include mobile {
+
+  }
+}
+
+.settings{
+  border: 1px solid red;
+}
