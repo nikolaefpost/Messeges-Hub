@@ -4,7 +4,8 @@ import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
 import { db } from "../../firebase";
 import styles from "./sidebar.module.scss"
-import {IChatInfoData, IUser} from "../../types";
+import {IChatInfoData } from "../../types";
+import {User} from "firebase/auth";
 
 interface IChats {
     setIsSidebar?: (boolean: boolean)=>void
@@ -36,7 +37,7 @@ const Chats: FC<IChats> = ({setIsSidebar}) => {
         currentUser?.uid && getChats();
     }, [currentUser]);
 
-    const handleSelect = (u: IUser) => {
+    const handleSelect = (u: User) => {
         dispatch({ type: "CHANGE_USER", payload: u });
         if(setIsSidebar) setIsSidebar(false);
     };
@@ -51,7 +52,7 @@ const Chats: FC<IChats> = ({setIsSidebar}) => {
                     key={chatId}
                     onClick={() => handleSelect(chat.userInfo)}
                 >
-                    <img src={chat.userInfo.photoURL} alt="" />
+                    {chat.userInfo.photoURL && <img src={chat.userInfo.photoURL} alt=""/>}
                     <div className={styles.userChatInfo}>
                         <span>{chat.userInfo.displayName}</span>
                         <p>{chat.lastMessage?.text}</p>
