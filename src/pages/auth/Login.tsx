@@ -1,14 +1,15 @@
 
-import React, {useContext, useState} from "react";
+import React, { useState} from "react";
+import {signInUser} from "../../api/firebase.ts"
 import {  Link } from "react-router-dom";
-import {AuthContext} from "../../context/AuthContext.tsx";
+
 
 import styles from "./auth.module.scss"
 // import {setStorageUser} from "../../helpers";
 
 const Login = () => {
     const [err, setErr] = useState<boolean>(false);
-    const {signInUser} = useContext(AuthContext)
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -35,7 +36,7 @@ const Login = () => {
                 <form onSubmit={handleSubmit}>
                     <input type="email" placeholder="email"/>
                     <input type="password" placeholder="password"/>
-                    <button>Sign in</button>
+                    <button type="submit">Sign in</button>
                     {err && <span>Something went wrong</span>}
                 </form>
                 <p>You don't have an account?

@@ -40,3 +40,8 @@ export interface IMenuItem {
     title: string,
     icon: IconType,
 }
+
+export interface IUpdateDataUser {
+    file: File | null;
+    displayName?: string;
+}

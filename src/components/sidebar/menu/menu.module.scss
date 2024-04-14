@@ -61,33 +61,34 @@
     border-top: 1px solid $text_light;
     padding: 30px 20px;
 
-    & li{
+    & li {
       @include display-flex(flex-start);
       gap: 20px;
 
-      & .title{
+      & .title {
         @include fonts(500, 24px, 24px, $text_light);
       }
     }
 
   }
+
   @include mobile {
 
   }
 }
 
-.settings{
+.settings {
   position: relative;
   z-index: 1000;
 
-  & .header_set{
+  & .header_set {
     @include display-flex(flex-start);
     gap: 20px;
     border-bottom: 1px solid $text_light;
     padding-bottom: 10px;
 
 
-    & img{
+    & img {
       height: 80px;
       width: 80px;
       border-radius: 50%;
@@ -95,8 +96,47 @@
       border: 1px solid $text_light;
     }
 
-    & span{
+    & span {
       @include fonts(700, 18px, 18px, $text_light);
+    }
+  }
+
+  & form {
+    position: relative;
+    padding-top: 40px;
+    text-align: center;
+
+    & label {
+      right: 60px;
+      top: -25px;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: $burgundy;
+      @include display-flex;
+      color: $text_light;
+      border: 2px solid $background;
+
+      & img {
+        width: 30px;
+        height: 30px;
+
+      }
+    }
+
+    & input {
+      width: 100%;
+      padding: 8px 12px;
+    }
+
+    & button {
+      margin: 30px auto;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: $burgundy;
+      @include fonts(500, 18px, 18px, $text_light);
     }
   }
 }

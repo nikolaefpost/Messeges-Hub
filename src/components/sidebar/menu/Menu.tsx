@@ -67,7 +67,7 @@ const Menu: FC<IMenu> = ({media}) => {
                 ))}
             </motion.ul>
             <Modal showModal={modal} onModalClose={()=>setModal(false)}>
-                <Settings currentUser={currentUser} />
+                <Settings currentUser={currentUser} onModalClose={()=>setModal(false)}  />
             </Modal>
 
         </motion.div>
