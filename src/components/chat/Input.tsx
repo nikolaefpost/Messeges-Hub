@@ -1,19 +1,10 @@
 import React, { ChangeEvent, useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
-import {
-    arrayUnion,
-    doc,
-    serverTimestamp,
-    Timestamp,
-    updateDoc,
-} from "firebase/firestore";
-import { db, storage } from "../../firebase.ts";
-import { v4 as uuid } from "uuid";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { imgIcon, attach } from "../../assets"
 
 import styles from "./chat.module.scss"
+import {onSendMessage} from "../../api/firebase.ts";
 
 const Input: React.FC = () => {
     const [text, setText] = useState<string>("");
@@ -29,71 +20,7 @@ const Input: React.FC = () => {
         if (!currentUser || !data.user) return;
 
         try{
-            if (img) {
-                const downloadURLPromises = img.map((image) => {
-                    const storageRef = ref(storage, uuid());
-                    const uploadTask = uploadBytesResumable(storageRef, image);
-
-                    return new Promise((resolve, reject) => {
-                        uploadTask.on(
-                            "state_changed",
-                            (snapshot) => {
-                                setUploadProgress((Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100))
-                            },
-                            (error) => {
-                                console.log(error);
-                                reject(error);
-                            },
-                            () => {
-                                getDownloadURL(uploadTask.snapshot.ref)
-                                    .then((downloadURL) => {
-                                        resolve(downloadURL);
-                                    })
-                                    .catch((error) => {
-                                        console.log(error);
-                                        reject(error);
-                                    });
-                            }
-                        );
-                    });
-                });
-                const downloadURLs = await Promise.all(downloadURLPromises);
-
-                await updateDoc(doc(db, "chats", data.chatId), {
-                    messages: arrayUnion({
-                        id: uuid(),
-                        text,
-                        senderId: currentUser.uid,
-                        date: Timestamp.now(),
-                        img: downloadURLs,
-                    }),
-                });
-
-            } else {
-                await updateDoc(doc(db, "chats", data.chatId), {
-                    messages: arrayUnion({
-                        id: uuid(),
-                        text,
-                        senderId: currentUser.uid ,
-                        date: Timestamp.now(),
-                    }),
-                });
-            }
-
-            await updateDoc(doc(db, "userChats", currentUser.uid), {
-                [data.chatId + ".lastMessage"]: {
-                    text,
-                },
-                [data.chatId + ".date"]: serverTimestamp(),
-            });
-
-            await updateDoc(doc(db, "userChats", data.user.uid), {
-                [data.chatId + ".lastMessage"]: {
-                    text,
-                },
-                [data.chatId + ".date"]: serverTimestamp(),
-            });
-
+            await onSendMessage({currentUser, data, img, text, setUploadProgress})
             setText("");
             setImg([]);
             setUploadProgress(0);

@@ -1,11 +1,12 @@
-import { doc, onSnapshot, DocumentSnapshot, DocumentData } from "firebase/firestore";
+
 import  {FC, useContext, useEffect, useState} from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
-import { db } from "../../firebase";
-import styles from "./sidebar.module.scss"
 import {IChatInfoData } from "../../types";
 import {User} from "firebase/auth";
+import {getChats, onDeleteMessages} from "../../api/firebase.ts";
+import { IoMdTrash } from "react-icons/io";
+import styles from "./sidebar.module.scss"
 
 interface IChats {
     setIsSidebar?: (boolean: boolean)=>void
@@ -18,29 +19,19 @@ const Chats: FC<IChats> = ({setIsSidebar}) => {
     const { dispatch } = useContext(ChatContext);
 
     useEffect(() => {
-        const getChats = () => {
-            if (!currentUser) return;
-
-            const userChatDocRef = doc(db, "userChats", currentUser.uid);
-
-            const unsub = onSnapshot(userChatDocRef, (docSnapshot: DocumentSnapshot<DocumentData>) => {
-                if (docSnapshot.exists()) {
-                    setChats(docSnapshot.data() as IChatInfoData);
-                }
-            });
-
-            return () => {
-                unsub();
-            };
-        };
-
-        currentUser?.uid && getChats();
+        currentUser?.uid && getChats(currentUser, setChats);
     }, [currentUser]);
 
     const handleSelect = (u: User) => {
         dispatch({ type: "CHANGE_USER", payload: u });
         if(setIsSidebar) setIsSidebar(false);
     };
+
+    const onHandleDelete = (chatId: string, userUid: string) => {
+        if (!currentUser) return
+         onDeleteMessages(currentUser, chatId, userUid)
+        console.log(chatId+"::"+ userUid)
+    }
 
     return (
         <div className={styles.chats}>
@@ -50,13 +41,19 @@ const Chats: FC<IChats> = ({setIsSidebar}) => {
                 <div
                     className={styles.userChat}
                     key={chatId}
-                    onClick={() => handleSelect(chat.userInfo)}
                 >
-                    {chat.userInfo.photoURL && <img src={chat.userInfo.photoURL} alt=""/>}
-                    <div className={styles.userChatInfo}>
-                        <span>{chat.userInfo.displayName}</span>
-                        <p>{chat.lastMessage?.text}</p>
+                    <div
+                        className={styles.info_chat}
+                        onClick={() => handleSelect(chat.userInfo)}
+                    >
+                        {chat.userInfo.photoURL && <img src={chat.userInfo.photoURL} alt=""/>}
+                        <div className={styles.userChatInfo}>
+                            <span>{chat.userInfo.displayName}</span>
+                            <p>{chat.lastMessage?.text}</p>
+                        </div>
                     </div>
+                    <span onClick={()=>onHandleDelete(chatId, chat.userInfo.uid)}><IoMdTrash size={18} color="#fefefe" /></span>
+
                 </div>
             ))}
         </div>

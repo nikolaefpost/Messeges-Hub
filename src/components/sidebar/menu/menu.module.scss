@@ -106,7 +106,7 @@
     padding-top: 40px;
     text-align: center;
 
-    & label {
+    & .photo {
       right: 60px;
       top: -25px;
       position: absolute;
@@ -125,10 +125,24 @@
       }
     }
 
-    & input {
-      width: 100%;
-      padding: 8px 12px;
+    & .input_block{
+      text-align: left;
+
+      & input {
+        width: 100%;
+        padding: 8px 12px;
+        margin-top: 8px;
+      }
+
+      & .nik{
+        width: 100%;
+        @include fonts(400, 14px, 14px, $text_light);
+        text-align: left;
+
+      }
+
     }
+
 
     & button {
       margin: 30px auto;

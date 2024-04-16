@@ -10,7 +10,6 @@ interface MessageProps {
 }
 
 const Message: FC<MessageProps> = ({ message }) => {
-    console.log(message.img)
     const { currentUser } = useContext(AuthContext);
     // const { data } = useContext(ChatContext);
 

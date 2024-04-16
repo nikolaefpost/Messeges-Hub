@@ -10,6 +10,11 @@ import {IconType} from "react-icons";
 //     // Define other properties of the user as needed
 // }
 
+export interface ChatState {
+    chatId: string;
+    user: User;
+}
+
 export interface IChatInfo {
     userInfo: User;
     lastMessage?: {

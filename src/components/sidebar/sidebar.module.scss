@@ -92,14 +92,19 @@
 
   & .userChat {
     padding: 10px;
-    @include display-flex(flex-start);
-    gap: 10px;
+    @include display-flex(space-between);
+
     cursor: pointer;
     overflow-y: auto;
     //border-bottom: 1px solid $text_dark;
 
     &:hover {
       background-color: $background_hover;
+    }
+
+    & .info_chat{
+      @include display-flex(flex-start);
+      gap: 10px;
     }
 
     & img {
@@ -110,12 +115,12 @@
     }
 
     & .userChatInfo {
-
       & span {
         @include fonts(500, 16px, 16px, $text_light);
       }
 
       & p {
+        margin-top: 6px;
         @include fonts(500, 14px, 14px, $text_dark);
       }
     }

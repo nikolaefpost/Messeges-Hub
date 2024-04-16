@@ -15,6 +15,7 @@ const Settings: FC<Interface> = ({currentUser, onModalClose}) => {
 
     const [displayName, setDisplayName] = useState(currentUser?.displayName || "");
     const [file, setFile] = useState<File | null>(null);
+    const [isUpdating, setIsUpdating] = useState(false)
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             // Get the first selected file
@@ -24,6 +25,7 @@ const Settings: FC<Interface> = ({currentUser, onModalClose}) => {
     };
 
     const onUpdateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
+        setIsUpdating(true)
         e.preventDefault();
         await updateUser({file, displayName})
         onModalClose();
@@ -44,15 +46,22 @@ const Settings: FC<Interface> = ({currentUser, onModalClose}) => {
                     id="file"
                     onChange={handleFileChange}
                 />
-                <label htmlFor="file">
+                <label className={styles.photo} htmlFor="file">
                     <img src={add_photo} alt=""/>
                 </label>
-                <input
-                    type="text"
-                    value={displayName}
-                    onChange={(e) => setDisplayName(e.target.value)}
-                />
-                <button type="submit">Update profile</button>
+                <div className={styles.input_block}>
+                    <label htmlFor="text" className={styles.nik}>
+                        enter your nickname
+                    </label>
+                    <input
+                        id="text"
+                        type="text"
+                        value={displayName}
+                        onChange={(e) => setDisplayName(e.target.value)}
+                    />
+                </div>
+
+                <button disabled={isUpdating}  type="submit">Update profile</button>
             </form>
         </div>
     );
