@@ -15,7 +15,7 @@ const Input: React.FC<IInput> = ({heightTextarea, setHeightTextarea}) => {
     const [text, setText] = useState<string>("");
     const [img, setImg] = useState<File[] | []>([]);
     const [uploadProgress, setUploadProgress] = useState<number>(0);
-    // const [heightTextarea, setHeightTextarea] = useState('auto')
+    const [submissionProcessing, setSubmissionProcessing] = useState(false)
 
 
     const { currentUser } = useContext(AuthContext);
@@ -23,6 +23,7 @@ const Input: React.FC<IInput> = ({heightTextarea, setHeightTextarea}) => {
 
     const handleSend = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setSubmissionProcessing(true)
         if (!currentUser || !data.user) return;
         if(!text.trim() && img.length<1) return;
 
@@ -31,6 +32,7 @@ const Input: React.FC<IInput> = ({heightTextarea, setHeightTextarea}) => {
             setText("");
             setImg([]);
             setUploadProgress(0);
+            setSubmissionProcessing(false)
 
         }catch (error){
             console.error("Error uploading images:", error);
@@ -81,7 +83,7 @@ const Input: React.FC<IInput> = ({heightTextarea, setHeightTextarea}) => {
                 </label>
                 <button
                     type='submit'
-                    // onClick={handleSend}
+                    disabled={submissionProcessing}
                 >Send</button>
                 {uploadProgress > 0 && ( // Display progress only if it's greater than 0
                     <div className={styles.boot}>{uploadProgress}%</div>
