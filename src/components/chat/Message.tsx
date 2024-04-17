@@ -5,11 +5,21 @@ import cn from "classnames";
 
 import styles from "./chat.module.scss"
 import {currentTime} from "../../helpers";
+import {onDeleteMessage} from "../../api/firebase.ts";
 interface MessageProps {
     message: IMessage;
+    chatId: string
 }
 
-const Message: FC<MessageProps> = ({ message }) => {
+const Message: FC<MessageProps> = ({ message,  chatId }) => {
+    const onHandleDeleteMessage = () => {
+        try {
+             onDeleteMessage(chatId, message)
+        } catch (error) {
+            console.error('Error deleting message:', error);
+        }
+    }
+
     const { currentUser } = useContext(AuthContext);
     // const { data } = useContext(ChatContext);
 
@@ -23,6 +33,7 @@ const Message: FC<MessageProps> = ({ message }) => {
         <div
             ref={ref}
             className={cn(styles.message, {[styles.owner]: message.senderId === currentUser?.uid})}
+            onClick={onHandleDeleteMessage}
         >
             <div className={styles.messageInfo}>
                 {message.senderId === currentUser?.uid && <img

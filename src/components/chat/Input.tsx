@@ -47,7 +47,7 @@ const Input: React.FC = () => {
     };
 
     return (
-        <div className={styles.input}>
+        <form className={styles.input} onSubmit={handleSend}>
             <input
                 type="text"
                 placeholder="Type something..."
@@ -66,12 +66,15 @@ const Input: React.FC = () => {
                 <label htmlFor="file">
                     <img src={imgIcon} alt="" />
                 </label>
-                <button onClick={handleSend}>Send</button>
+                <button
+                    type='submit'
+                    // onClick={handleSend}
+                >Send</button>
                 {uploadProgress > 0 && ( // Display progress only if it's greater than 0
                     <div className={styles.boot}>{uploadProgress}%</div>
                 )}
             </div>
-        </div>
+        </form>
     );
 };
 

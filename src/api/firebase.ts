@@ -1,8 +1,9 @@
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import {auth, db, storage} from "../firebase.ts";
-import {ChatState, IChatInfoData, ISignInUser, IUpdateDataUser} from "../types";
+import {ChatState, IChatInfoData, IMessage, ISignInUser, IUpdateDataUser} from "../types";
 import {signInWithEmailAndPassword, updateProfile, User} from "firebase/auth";
 import {
+    arrayRemove,
     arrayUnion, collection,
     deleteDoc,
     deleteField,
@@ -234,5 +235,13 @@ export const onDeleteMessages = async (currentUser: User, chatId: string, userUi
     const userRef = doc(db, 'userChats', userUid);
     await updateDoc(userRef, {
         [chatId]: deleteField()
+    });
+}
+
+export const onDeleteMessage = async (chatId: string, message: IMessage) => {
+    const chatRef = doc(db, 'chats', chatId);
+
+    await updateDoc(chatRef, {
+        'messages': arrayRemove(message)
     });
 }

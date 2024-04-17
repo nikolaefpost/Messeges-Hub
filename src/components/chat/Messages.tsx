@@ -23,7 +23,7 @@ const Messages = () => {
     return (
         <div className={styles.messages}>
             {messages.map((m: IMessage) => (
-                <Message message={m} key={m.id} />
+                <Message message={m} key={m.id}  chatId={data.chatId} />
             ))}
         </div>
     );
