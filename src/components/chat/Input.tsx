@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useState } from "react";
+import React, {ChangeEvent, FormEvent, useContext, useState} from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
 import { imgIcon, attach } from "../../assets"
@@ -15,8 +15,8 @@ const Input: React.FC = () => {
     const { currentUser } = useContext(AuthContext);
     const { data } = useContext(ChatContext);
 
-    const handleSend = async () => {
-
+    const handleSend = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         if (!currentUser || !data.user) return;
 
         try{
