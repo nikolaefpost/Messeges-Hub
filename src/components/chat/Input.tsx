@@ -6,11 +6,16 @@ import { imgIcon, attach } from "../../assets"
 import styles from "./chat.module.scss"
 import {onSendMessage} from "../../api/firebase.ts";
 
-const Input: React.FC = () => {
+interface IInput {
+    heightTextarea: number;
+    setHeightTextarea: (height: number)=>void;
+}
+
+const Input: React.FC<IInput> = ({heightTextarea, setHeightTextarea}) => {
     const [text, setText] = useState<string>("");
     const [img, setImg] = useState<File[] | []>([]);
     const [uploadProgress, setUploadProgress] = useState<number>(0);
-    const [heightTextarea, setHeightTextarea] = useState('auto')
+    // const [heightTextarea, setHeightTextarea] = useState('auto')
 
 
     const { currentUser } = useContext(AuthContext);
@@ -30,7 +35,7 @@ const Input: React.FC = () => {
         }catch (error){
             console.error("Error uploading images:", error);
         }
-        setHeightTextarea("auto")
+        setHeightTextarea(0)
     };
 
     const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -49,7 +54,7 @@ const Input: React.FC = () => {
     };
 
     const autoResize = (element: HTMLTextAreaElement) => {
-        setHeightTextarea(element.scrollHeight + 'px')
+        setHeightTextarea(element.scrollHeight)
     };
 
     return (
@@ -60,7 +65,7 @@ const Input: React.FC = () => {
                 onChange={handleTextChange}
                 value={text}
                 // cols={1}
-                style={{height: heightTextarea}}
+                style={{height: heightTextarea === 0? "auto": `${heightTextarea}px`}}
             />
             <div className={styles.send}>
                 <img src={attach} alt="" />

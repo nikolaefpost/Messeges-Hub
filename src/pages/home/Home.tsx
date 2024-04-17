@@ -36,7 +36,7 @@ const Home = () => {
                     {
                         isSidebar?
                             <Sidebar setIsSidebar={setIsSidebar}/>
-                            :<Chat setIsSidebar={setIsSidebar} />
+                            :<Chat setIsSidebar={setIsSidebar}  />
                     }
                 </div>
             </div>

@@ -36,7 +36,7 @@
   & .messages {
     background-color: $background;
     padding: 10px;
-    height: calc(100% - 100px);
+    max-height: calc(100% - 120px);
     overflow: auto;
 
     & .message {
@@ -181,6 +181,7 @@
     & .messages{
       height: 100%;
       padding: 70px 10px 80px;
+      max-height: unset;
     }
 
     & .input{

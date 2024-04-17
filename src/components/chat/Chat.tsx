@@ -1,4 +1,4 @@
-import {FC, useContext} from "react";
+import {FC, useContext, useState} from "react";
 import Messages from "./Messages.tsx";
 import {ChatContext} from "../../context/ChatContext.tsx";
 import {IoMdVideocam, IoIosPersonAdd, IoIosMore, IoIosContact, IoMdReturnLeft} from "react-icons/io";
@@ -12,6 +12,7 @@ interface IChat {
 
 
 const Chat: FC<IChat> = ({setIsSidebar}) => {
+    const [heightTextarea, setHeightTextarea] = useState(0)
     const {data} = useContext(ChatContext);
     // const handleBackSidebar = () => {
     //     if(setIsSidebar) setIsSidebar(false);
@@ -34,8 +35,8 @@ const Chat: FC<IChat> = ({setIsSidebar}) => {
                     <IoIosMore size={24} color="#fefefe"/>
                 </div>
             </div>
-            <Messages/>
-            <Input/>
+            <Messages heightTextarea={heightTextarea} />
+            <Input heightTextarea={heightTextarea} setHeightTextarea={setHeightTextarea} />
         </div>
     );
 };
