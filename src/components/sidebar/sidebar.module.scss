@@ -67,9 +67,10 @@
 
   & .search {
     border-bottom: 1px solid $burgundy;
+    padding: 0 6px;
 
     & .searchForm {
-      padding: 10px;
+      padding: 20px;
       @include display-flex(flex-start);
       gap: 10px;
 
@@ -82,7 +83,7 @@
       & input {
         background-color: transparent;
         border: none;
-        color: $text_light;
+        @include fonts(500, 18px, 18px, $text_light);
         outline: none;
 
         &::placeholder {

@@ -10,6 +10,7 @@ const Input: React.FC = () => {
     const [text, setText] = useState<string>("");
     const [img, setImg] = useState<File[] | []>([]);
     const [uploadProgress, setUploadProgress] = useState<number>(0);
+    const [heightTextarea, setHeightTextarea] = useState('auto')
 
 
     const { currentUser } = useContext(AuthContext);
@@ -18,6 +19,7 @@ const Input: React.FC = () => {
     const handleSend = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!currentUser || !data.user) return;
+        if(!text.trim() && img.length<1) return;
 
         try{
             await onSendMessage({currentUser, data, img, text, setUploadProgress})
@@ -28,12 +30,12 @@ const Input: React.FC = () => {
         }catch (error){
             console.error("Error uploading images:", error);
         }
-
-
+        setHeightTextarea("auto")
     };
 
-    const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
+        autoResize(e.target)
     };
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,13 +48,19 @@ const Input: React.FC = () => {
         }
     };
 
+    const autoResize = (element: HTMLTextAreaElement) => {
+        setHeightTextarea(element.scrollHeight + 'px')
+    };
+
     return (
         <form className={styles.input} onSubmit={handleSend}>
-            <input
-                type="text"
+            <textarea
+                // type="text"
                 placeholder="Type something..."
                 onChange={handleTextChange}
                 value={text}
+                // cols={1}
+                style={{height: heightTextarea}}
             />
             <div className={styles.send}>
                 <img src={attach} alt="" />
