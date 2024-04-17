@@ -73,6 +73,12 @@
       @include display-flex(flex-start);
       gap: 10px;
 
+      & button{
+        @include display-flex;
+        background: transparent;
+        border: none;
+      }
+
       & input {
         background-color: transparent;
         border: none;

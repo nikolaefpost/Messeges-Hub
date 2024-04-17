@@ -1,4 +1,4 @@
-import React, { useContext, useState, KeyboardEvent } from "react";
+import React, {useContext, useState, KeyboardEvent, FormEvent} from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { IoIosSearch } from "react-icons/io";
 import {User} from "firebase/auth";
@@ -15,7 +15,8 @@ const Search: React.FC = () => {
 
     const { currentUser } = useContext(AuthContext);
 
-    const handleSearch = async () => {
+    const handleSearch = async (e?: FormEvent<HTMLFormElement> | undefined) => {
+        if (e) e.preventDefault();
         if(!username.trim()) return;
         try {
             await onGetUser(username, setUser)
@@ -50,8 +51,8 @@ const Search: React.FC = () => {
 
     return (
         <div className={styles.search}>
-            <div className={styles.searchForm}>
-                <div onClick={handleSearch}><IoIosSearch size={18} color="#4e4e50" /></div>
+            <form onSubmit={handleSearch} className={styles.searchForm}>
+                <button type='submit'><IoIosSearch size={18} color="#4e4e50" /></button>
                 <input
                     type="text"
                     placeholder="Find a user"
@@ -59,7 +60,7 @@ const Search: React.FC = () => {
                     onChange={(e) => setUsername(e.target.value)}
                     value={username}
                 />
-            </div>
+            </form>
             {err && <span>User not found!</span>}
             {user && (
                 <div className={styles.userChat} onClick={handleSelect}>
