@@ -19,3 +19,7 @@ export const setStorageUser = (signUser: ISignInUser) => {
 export const setNullStorageUser = () => {
     localStorage.removeItem('currentUser')
 }
+
+export const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text)
+};

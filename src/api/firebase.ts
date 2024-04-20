@@ -238,7 +238,7 @@ export const onDeleteMessages = async (currentUser: User, chatId: string, userUi
     });
 }
 
-export const onDeleteMessage = async (chatId: string, message: IMessage) => {
+export const onDeleteMessage = async (chatId: string, message: IMessage ) => {
     const chatRef = doc(db, 'chats', chatId);
 
     await updateDoc(chatRef, {

@@ -28,7 +28,7 @@ const Home = () => {
             <div className={styles.home}  ref={homeRef}>
                 <div className={styles.container}>
                     <Sidebar  />
-                    <Chat/>
+                    <Chat media={media} />
                 </div>
             </div> :
             <div className={styles.home}>
@@ -36,7 +36,7 @@ const Home = () => {
                     {
                         isSidebar?
                             <Sidebar setIsSidebar={setIsSidebar}/>
-                            :<Chat setIsSidebar={setIsSidebar}  />
+                            :<Chat setIsSidebar={setIsSidebar} media={media}  />
                     }
                 </div>
             </div>

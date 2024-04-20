@@ -21,7 +21,7 @@ export const useTrackMousePosition = (setOpenMenu: (arg: boolean) => void) => {
                 const dy = Math.abs(mouseY - initialPosition.y);
 
                 // Check if movement exceeds 50 pixels in either direction
-                if (dx > 50 || dy > 50) {
+                if (dx > 100 || dy > 100) {
                     setOpenMenu(false);
                 }
             }
@@ -30,6 +30,7 @@ export const useTrackMousePosition = (setOpenMenu: (arg: boolean) => void) => {
         window.addEventListener('mousemove', handleMouseMove);
 
         return () => {
+
             window.removeEventListener('mousemove', handleMouseMove);
         };
     }, [initialPosition, setOpenMenu]);
