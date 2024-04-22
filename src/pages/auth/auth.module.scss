@@ -61,13 +61,14 @@
         @include display-flex(flex-start);
         gap: 10px;
         @include fonts(400, 12px, 12px, $text_light);
-            cursor: pointer;
+        cursor: pointer;
 
         img {
           width: 24px;
         }
       }
     }
+
     p {
       width: 100%;
       @include fonts(600, 12px, 12px, $burgundy);
@@ -75,14 +76,28 @@
       @include display-flex(space-between);
       justify-content: space-between;
 
-      & a{
+      & a {
         @include fonts(600, 16px, 16px, $burgundy);
         text-decoration: none;
       }
     }
 
-    & .loading, .err{
+    & .loading, .err {
       @include fonts(600, 16px, 16px, $error);
+    }
+
+    @include mobile {
+      min-width: 90%;
+      //margin: 0 10px;
+      padding: 20px;
+
+      & form {
+        width: 100%;
+
+        input {
+          width: auto;
+        }
+      }
     }
   }
 }
