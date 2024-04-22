@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from "react";
 import {AuthContext} from "./context/AuthContext";
-import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
+import { createHashRouter, Navigate, RouterProvider} from "react-router-dom";
 import {Home, Login, Register} from "./pages";
 
 
@@ -14,7 +14,7 @@ const App = () => {
         return element;
     };
 
-    const router = createBrowserRouter([
+    const router = createHashRouter([
         {
             path: "/",
             element: <ProtectedRoute element={<Home/>}/>,
